@@ -1,23 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-*{
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins',sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
-html, body{
+
+html,
+body {
   display: grid;
-  height: 100vh;
+  /* height: 100vh; */
   width: 100%;
   place-items: center;
-  background: linear-gradient(to right, #99004d 0%, #ff0080 100%);
+  background: linear-gradient(to right, #41cfdcbf 0%, #ffb0009e 100%);
 }
-::selection{
+
+::selection {
   background: #ff80bf;
 
 }
-.container{
+
+.container {
   background: #fff;
   max-width: 350px;
   width: 100%;
@@ -25,13 +30,15 @@ html, body{
   border-radius: 5px;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
 }
-.container form .title{
+
+.container form .title {
   font-size: 30px;
   font-weight: 600;
   margin: 20px 0 10px 0;
   position: relative;
 }
-.container form .title:before{
+
+.container form .title:before {
   content: '';
   position: absolute;
   height: 4px;
@@ -41,20 +48,23 @@ html, body{
   border-radius: 5px;
   background: linear-gradient(to right, #99004d 0%, #ff0080 100%);
 }
-.container form .input-box{
+
+.container form .input-box {
   width: 100%;
   height: 45px;
   margin-top: 25px;
   position: relative;
 }
-.container form .input-box input{
+
+.container form .input-box input {
   width: 100%;
   height: 100%;
   outline: none;
   font-size: 16px;
   border: none;
 }
-.container form .underline::before{
+
+.container form .underline::before {
   content: '';
   position: absolute;
   height: 2px;
@@ -63,7 +73,8 @@ html, body{
   left: 0;
   bottom: 0;
 }
-.container form .underline::after{
+
+.container form .underline::after {
   content: '';
   position: absolute;
   height: 2px;
@@ -75,62 +86,110 @@ html, body{
   transform-origin: left;
   transition: all 0.3s ease;
 }
-.container form .input-box input:focus ~ .underline::after,
-.container form .input-box input:valid ~ .underline::after{
+
+.container form .input-box input:focus~.underline::after,
+.container form .input-box input:valid~.underline::after {
   transform: scaleX(1);
   transform-origin: left;
 }
-.container form .button{
+
+.container form .button {
   margin: 40px 0 20px 0;
 }
-.container .input-box input[type="submit"]{
-  background: linear-gradient(to right, #99004d 0%, #ff0080 100%);
-  font-size: 17px;
+
+.container .input-box .login_button {
+  background: linear-gradient(to right, #0df8dc 0%, #0df8dc 100%);
+  font-size: 30px;
   color: #fff;
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
-.container .input-box input[type="submit"]:hover{
-  letter-spacing: 1px;
-  background: linear-gradient(to left, #99004d 0%, #ff0080 100%);
+
+.container .input-box .login_button:hover {
+  letter-spacing: 5px;
+  background: linear-gradient(to left, #0df8dc 0%, #0df8dc 100%);
 }
-.container .option{
+
+.container .option {
   font-size: 14px;
   text-align: center;
 }
-.container .facebook a,
-.container .twitter a{
-  display: block;
-  height: 45px;
-  width: 100%;
-  font-size: 15px;
-  text-decoration: none;
-  padding-left: 20px;
-  line-height: 45px;
-  color: #fff;
-  border-radius: 5px;
-  transition: all 0.3s ease;
+
+
+/* Portal Header */
+
+
+.header {
+  overflow: hidden;
+  background-color: #f1f1f1;
+  padding: 20px 10px;
+  width: inherit;
 }
 
-.container .facebook i,
-.container .twitter i{
-  padding-right: 12px;
-  font-size: 20px;
+.header a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 4px;
 }
-.container .twitter a{
-  background: linear-gradient(to right,  #00acee 0%, #1abeff 100%);
-  margin: 20px 0 15px 0;
+
+.header a.logo {
+  font-size: 25px;
+  font-weight: bold;
 }
-.container .twitter a:hover{
-  background: linear-gradient(to left,  #00acee 0%, #1abeff 100%);
-  margin: 20px 0 15px 0;
+
+.header a:hover {
+  background-color: #ddd;
+  color: black;
 }
-.container .facebook a{
-  background: linear-gradient( to right,  #3b5998 0%, #476bb8 100%);
-  margin: 20px 0 50px 0;
+
+.header a.active {
+  background-color: dodgerblue;
+  color: white;
 }
-.container .facebook a:hover{
-  background: linear-gradient( to left,  #3b5998 0%, #476bb8 100%);
-  margin: 20px 0 50px 0;
+
+.header-right {
+  float: right;
+}
+
+@media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+
+  .header-right {
+    float: none;
+  }
+}
+
+.portal-logo {
+  width: 50px;
+  height: 50px;
+}
+
+/* Table view */
+
+.container-table {
+  padding: 2rem 3rem;
+  background-color: aliceblue;
+  border-radius: 15px;
+  /* padding: 40px; */
+}
+h4 {
+  margin: 2rem 0rem 1rem;
+}
+.table-image td, .table-image th {
+  vertical-align: middle;
+}
+
+/* button alignment */
+.container-table .main-row{
+  margin-top: 10px;
 }

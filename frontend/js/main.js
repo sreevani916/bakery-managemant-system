@@ -1,10 +1,17 @@
 function login() {
     const username = $('.username').val();
     const password = $('.password').val();
-    if(checkCredentials(username, password)){
-        console.log(true)
-        $.cookie('login', 'admin');
+    console.log(username)
+    if(username==''  || password==''){
+        prompt("Please fill credentials");
+        return;
     }
+    if (checkCredentials(username, password)) {
+        window.location.href = 'portal/main.html';
+        sessionStorage.setItem('login','admin')
+        return;
+    }
+    prompt('Wrong Username or password!!');
 }
 
 function checkCredentials(user, pass) {
