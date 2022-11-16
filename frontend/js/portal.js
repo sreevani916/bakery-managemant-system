@@ -13,3 +13,8 @@ function navigate(event) {
   $(".iframe_main").attr('src', event);
   sessionStorage.setItem('navigate',event);
 }
+
+function logOut(){
+  sessionStorage.clear();
+  window.location='../login.html'
+}
