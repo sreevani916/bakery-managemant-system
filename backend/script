@@ -1,0 +1,57 @@
+-- Table: public.customer
+
+-- DROP TABLE IF EXISTS public.customer;
+
+CREATE TABLE IF NOT EXISTS public.customer
+(
+    custid character varying(11) COLLATE pg_catalog."default" NOT NULL,
+    custfirstname character varying COLLATE pg_catalog."default",
+    custsecondname character varying COLLATE pg_catalog."default",
+    custemail character varying COLLATE pg_catalog."default",
+    custphone character varying(11) COLLATE pg_catalog."default",
+    custaddress character varying COLLATE pg_catalog."default",
+    CONSTRAINT customer_pkey PRIMARY KEY (custid)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.customer
+    OWNER to postgres;
+
+
+-- Table: public.expense
+
+-- DROP TABLE IF EXISTS public.expense;
+
+CREATE TABLE IF NOT EXISTS public.expense
+(
+    expense_type character varying COLLATE pg_catalog."default",
+    amount character varying COLLATE pg_catalog."default",
+    expensedate date
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.expense
+    OWNER to postgres;
+
+
+    -- Table: public.orders
+
+-- DROP TABLE IF EXISTS public.orders;
+
+CREATE TABLE IF NOT EXISTS public.orders
+(
+    custid character varying(11) COLLATE pg_catalog."default",
+    orderid character varying(11) COLLATE pg_catalog."default" NOT NULL,
+    ordername character varying COLLATE pg_catalog."default",
+    orderprice character varying COLLATE pg_catalog."default",
+    orderdate date,
+    deliverydate date,
+    CONSTRAINT orders_pkey PRIMARY KEY (orderid)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.orders
+    OWNER to postgres;
