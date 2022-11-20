@@ -101,7 +101,7 @@ const addOrder = (request, response) => {
     if (error) {
       throw error
     }
-    // console.log(results.rows[0].exists)
+    console.log(results.rows[0].exists)
     if (results.rows[0].exists) {
       response.status(200).json({ 'process': false, message: 'duplicate' })
     } else {
