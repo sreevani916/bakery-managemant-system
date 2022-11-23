@@ -48,7 +48,7 @@ const deleteCustomerById = (request, response) => {
 
   pool.query('delete FROM customer WHERE custid = $1', [custid], (error, results) => {
     if (error) {
-      response.status(200).json({ 'process': false, message: `Something went wrong` });
+      response.status(201).json({ 'process': false, message: `Something went wrong` });
       throw error
     }
     response.status(200).json({ 'process': true, message: `Data deleted of id ${custid}` })
@@ -59,7 +59,7 @@ const deleteOrderById = (request, response) => {
   const orderid = request.body.orderid;
   pool.query('delete FROM  orders WHERE orderid = $1', [orderid], (error, results) => {
     if (error) {
-      response.status(200).json({ 'process': false, message: `Something went wrong` });
+      response.status(201).json({ 'process': false, message: `Something went wrong` });
       throw error
     }
     response.status(200).json({ 'process': true, message: `Data deleted of id ${orderid}` })
@@ -69,41 +69,48 @@ const deleteOrderById = (request, response) => {
 const addCustomer = (request, response) => {
   // console.log(request.body)
   const { Custid, custFirstName, custSecondName, custEmail, custPhone, custAddress } = request.body
-  pool.query('select exists(select 1 from customer where custid = $1)', [Custid], (error, results) => {
-    if (error) {
-      throw error
-    }
-    // console.log(results.rows[0].exists)
-    if (results.rows[0].exists) {
-      response.status(200).json({ 'process': false, message: 'duplicate' })
+  const checkData = new Promise((res, rej) => {
+    pool.query('select exists(select 1 from customer where custid = $1)', [Custid], (error, results) => {
+      if (error) {
+        rej(false)
+        throw error
+      }
+      res(results.rows[0].exists)
+    });
+  })
+  checkData.then(data => {
+    if (data) {
+      response.status(201).json({ 'process': false, message: 'duplicate' })
     } else {
       pool.query('INSERT INTO customer (Custid, custFirstName, custSecondName ,custEmail, custPhone, custAddress) VALUES ($1, $2, $3, $4, $5, $6)', [Custid, custFirstName, custSecondName, custEmail, custPhone, custAddress], (error, results) => {
         if (error) {
+          response.status(200).send({ 'process': false, message: 'something went wrong' })
           throw error
         }
         response.status(200).send({ 'process': true, message: `Customer added with ID: ${Custid}` })
       })
     }
+  }).catch(err => {
+    console.log(err)
   })
-
-  // return
-  // pool.query('INSERT INTO customer (Custid, custFirstName, custSecondName ,custEmail, custPhone, custAddress) VALUES ($1, $2, $3, $4, $5, $6)', [Custid, custFirstName, custSecondName, custEmail, custPhone, custAddress], (error, results) => {
-  //   if (error) {
-  //     throw error
-  //   }
-  //   response.status(200).send(`Customer added with ID: ${Custid}`)
-  // })
 }
 
-const addOrder = (request, response) => {
+const addOrder = async (request, response) => {
+  response.status({ 'process': true })
   const { Custid, orderId, Ordername, Orderprice, orderDate, deliveryDate } = request.body
-  pool.query('select exists(select 1 from orders where orderid = $1)', [orderId], (error, results) => {
-    if (error) {
-      throw error
-    }
-    console.log(results.rows[0].exists)
-    if (results.rows[0].exists) {
-      response.status(200).json({ 'process': false, message: 'duplicate' })
+  const checkData = new Promise((res, rej) => {
+    pool.query('select exists(select 1 from orders where orderid = $1)', [orderId], (error, results) => {
+      if (error) {
+        rej(false)
+        throw error
+      }
+      res(results.rows[0].exists)
+    });
+  })
+
+  checkData.then(data => {
+    if (data) {
+      response.status(201).json({ 'process': false, message: 'duplicate' })
     } else {
       pool.query('INSERT INTO orders (Custid, orderId, Ordername ,Orderprice, orderDate, deliveryDate) VALUES ($1, $2, $3, $4, $5, $6)', [Custid, orderId, Ordername, Orderprice, orderDate, deliveryDate], (error, results) => {
         if (error) {
@@ -113,6 +120,8 @@ const addOrder = (request, response) => {
         response.status(200).send({ 'process': true, message: `orders added with customer ID: ${Custid}` })
       })
     }
+  }).catch(err => {
+    console.log(err)
   })
 }
 
@@ -137,6 +146,4 @@ module.exports = {
   addOrder,
   addCustomer,
   addExpense
-  // updateUser,
-  // deleteUser,
 }
