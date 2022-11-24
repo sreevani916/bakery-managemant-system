@@ -15,7 +15,9 @@
 <body>
     <h1>Financial</h1>
 
-    <div class="container-table">
+    <div class="container-table finance-table">
+        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Add Expense</button>
         <div class="row">
             <div class="col-12">
                 <table class="table table-bordered finanse-fill">
@@ -42,6 +44,40 @@
             </div>
         </div>
     </div>
+
+    <!-- modal -->
+    <div class="modal fade expense-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New Order</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="get-order-form">
+                        <div class="form-group">
+                            <label for="expense-type" class="col-form-label">Expense Type:</label>
+                            <input type="text" class="form-control" id="expense-type">
+                        </div>
+                        <div class="form-group">
+                            <label for="amount" class="col-form-label">Amount:</label>
+                            <input type="text" class="form-control" id="amount" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="expense-date" class="col-form-label">Expense Date:</label>
+                            <input type="date" class="form-control" id="expense-date">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="addExpense()">Submit order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 

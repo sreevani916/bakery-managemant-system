@@ -1,5 +1,6 @@
 var newOrderId;
 var newCustomerId;
+var customerMain;
 
 const getOrders = async () => {
     const response = await fetch('http://localhost:3000/getAllOrders');
@@ -10,6 +11,7 @@ const getOrders = async () => {
 const getcustomers = async () => {
     const response = await fetch('http://localhost:3000/getAllCustomers');
     const customers = await response.json();
+    customerMain=customers;
     return customers;
 }
 
@@ -113,24 +115,38 @@ const addCustomer = async () => {
 }
 
 const addExpense = async () => {
-    const addExpense = await fetch('http://localhost:3000/addExpenses', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            "expense_type": "abc",
-            "amount": "abc",
-            "expenseDate": "12-12-2022"
-        })
-    }).catch(err => console.log(err));
-    const content = await addExpense.json();
-    if (content.process) {
-        console.log('process done')
-    } else {
-        console.log('something ')
+    const expensePackage = {
+        expense_type: $('#expense-type').val(),
+        amount: $('#amount').val(),
+        expenseDate: $('#expense-date').val()
     }
+
+    if (expensePackage.expense_type && expensePackage.amount && expensePackage.expenseDate) {
+        const addExpense = await fetch('http://localhost:3000/addExpenses', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "expense_type": expensePackage.expense_type,
+                "amount": expensePackage.amount,
+                "expenseDate": expensePackage.expenseDate
+            })
+        }).then(data => {
+            if (data['status'] == 201) {
+                prompt('Duplicate entry!')
+            } else {
+                prompt('Expense added successfully!');
+                location.reload();
+                $('.expense-modal').modal('toggle')
+            }
+        }).catch(err => console.log(err));
+
+    } else {
+        prompt('Please fill valid details');
+    }
+
 }
 
 const deleteOrder = async () => {

@@ -132,10 +132,10 @@ const addExpense = (request, response) => {
 
   pool.query('INSERT INTO expense (expense_type, amount, expenseDate) VALUES ($1, $2, $3)', [expense_type, amount, expenseDate], (error, results) => {
     if (error) {
-      response.status(200).send({ 'process': false, message: 'something went wrong' })
+      response.status(201).send({ 'process': false, message: 'something went wrong' })
       throw error
     }
-    response.status(201).send({ 'process': true, message: `expenses added with expense_type: ${expense_type}` })
+    response.status(200).send({ 'process': true, message: `expenses added with expense_type: ${expense_type}` })
   })
 }
 
