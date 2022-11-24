@@ -21,7 +21,7 @@
             Order</button>
         <div class="row main-row">
             <div class="col-12">
-                <table class="table table-bordered">
+                <table class="table table-bordered order-table-fill">
                     <thead>
                         <tr>
                             <th scope="col">Order ID</th>
@@ -32,47 +32,50 @@
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Bootstrap 4 CDN and Starter Template</td>
-                            <td>Cristina</td>
-                            <td>2.846</td>
-                            <td>2.846</td>
-                            <td>
-
-                                <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                            </td>
-                        </tr>
-                    </tbody>
                 </table>
             </div>
         </div>
     </div>
 
     <!-- modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade order-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">New Order</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Recipient:</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                    <form id="get-order-form">
+                        <div class="form-group">
+                            <label for="order-id" class="col-form-label">Order ID:</label>
+                            <input type="text" class="form-control" id="order-id" readonly>
                         </div>
-                        <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Message:</label>
-                            <textarea class="form-control" id="message-text"></textarea>
+                        <div class="form-group">
+                            <label for="order-name" class="col-form-label">Order Name:</label>
+                            <input type="text" class="form-control" id="order-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customer-name" class="col-form-label">Customer Name:</label>
+                            <input type="text" class="form-control" id="customer-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="order-price" class="col-form-label">Order Price:</label>
+                            <input type="text" class="form-control" id="order-price">
+                        </div>
+                        <div class="form-group">
+                            <label for="order-date" class="col-form-label">Order Date:</label>
+                            <input type="date" class="form-control" id="order-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="delivary-date" class="col-form-label">Delivery Date:</label>
+                            <input type="date" class="form-control" id="delivary-date">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Send message</button>
+                    <button type="button" class="btn btn-primary" onclick="addOrders()">Submit order</button>
                 </div>
             </div>
         </div>

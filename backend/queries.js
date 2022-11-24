@@ -6,23 +6,6 @@ const pool = new Pool({
   password: '123',
   port: 5432,
 })
-
-// const query = `
-// CREATE TABLE entity (
-//     id int,
-//     entity varchar,
-//     details varchar    
-// );
-// `;
-
-// pool.query(query, (err, res) => {
-//   if (err) {
-//       console.error(err);
-//       return;
-//   }
-//   console.log('Table is successfully created');  
-// });
-
 const getAllCustomers = (request, response) => {
   pool.query('SELECT * FROM customer ORDER BY Custid ASC', (error, results) => {
     if (error) {
@@ -41,10 +24,30 @@ const getAllOrders = (request, response) => {
   })
 }
 
+const genrateOrderId = (request, response) => {
+  pool.query('SELECT orderid FROM orders ORDER BY orderId DESC LIMIT 1', (error, results) => {
+    if (error) {
+      throw error
+    }
+    const newOrderId = results && results.rows[0] && (parseInt(results.rows[0].orderid) + 1) || 1
+    response.status(200).json(newOrderId)
+  })
+}
+
+const genrateCustomerId = (request, response) => {
+  pool.query('SELECT custid FROM customer ORDER BY custid DESC LIMIT 1', (error, results) => {
+    if (error) {
+      response.status(201).json('Customer ID not found')
+      // throw error
+    }
+    const newCustomerId = results && results.rows[0] && (parseInt(results.rows[0].custid) + 1) || 1
+    response.status(200).json(newCustomerId)
+  })
+}
+
 const deleteCustomerById = (request, response) => {
 
   const custid = request.body.custid;
-  console.log(custid)
 
   pool.query('delete FROM customer WHERE custid = $1', [custid], (error, results) => {
     if (error) {
@@ -67,7 +70,6 @@ const deleteOrderById = (request, response) => {
 }
 
 const addCustomer = (request, response) => {
-  // console.log(request.body)
   const { Custid, custFirstName, custSecondName, custEmail, custPhone, custAddress } = request.body
   const checkData = new Promise((res, rej) => {
     pool.query('select exists(select 1 from customer where custid = $1)', [Custid], (error, results) => {
@@ -137,6 +139,14 @@ const addExpense = (request, response) => {
   })
 }
 
+const getAllExpense = (request, response) => {
+  pool.query('SELECT * FROM expense ORDER BY expense_type ASC', (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
 
 module.exports = {
   getAllCustomers,
@@ -145,5 +155,8 @@ module.exports = {
   deleteOrderById,
   addOrder,
   addCustomer,
-  addExpense
+  addExpense,
+  getAllExpense,
+  genrateOrderId,
+  genrateCustomerId
 }

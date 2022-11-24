@@ -28,6 +28,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
  app.get('/getAllOrders',db.getAllOrders)
  app.post('/deleteCustomer',db.deleteCustomerById)
  app.post('/deleteOrders',db.deleteOrderById)
+ app.get('/getExpense',db.getAllExpense)
+ app.get('/genrateOrderId',db.genrateOrderId)
+ app.get('/genrateCustomerId',db.genrateCustomerId)
 
 app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' })

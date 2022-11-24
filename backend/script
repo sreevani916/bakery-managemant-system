@@ -8,8 +8,8 @@ CREATE TABLE IF NOT EXISTS public.customer
     custfirstname character varying COLLATE pg_catalog."default",
     custsecondname character varying COLLATE pg_catalog."default",
     custemail character varying COLLATE pg_catalog."default",
-    custphone character varying(11) COLLATE pg_catalog."default",
-    custaddress character varying COLLATE pg_catalog."default",
+    custphone character varying(20) COLLATE pg_catalog."default",
+    custaddress character varying(100) COLLATE pg_catalog."default",
     CONSTRAINT customer_pkey PRIMARY KEY (custid)
 )
 
@@ -17,7 +17,6 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.customer
     OWNER to postgres;
-
 
 -- Table: public.expense
 
