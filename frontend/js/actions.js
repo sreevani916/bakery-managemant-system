@@ -11,7 +11,7 @@ const getOrders = async () => {
 const getcustomers = async () => {
     const response = await fetch('http://localhost:3000/getAllCustomers');
     const customers = await response.json();
-    customerMain=customers;
+    customerMain = customers;
     return customers;
 }
 
@@ -35,7 +35,7 @@ const genrateCustomerId = async () => {
 
 const addOrders = async () => {
     const orderPackage = {
-        Custid: $('#customer-name').val(),
+        Custid: $('#customer-name-load').children(":selected").attr("id"),
         orderId: newOrderId.toString(),
         Ordername: $('#order-name').val(),
         Orderprice: $('#order-price').val(),
@@ -149,6 +149,13 @@ const addExpense = async () => {
 
 }
 
+function loadCustomerData() {
+    const customerMainFinal = customerMain;
+    customerMainFinal.forEach(e => {
+        $('#customer-name-load').append(`<option id="${e.custid}">${e.custfirstname + ' ' + e.custsecondname}</option>`)
+    });
+}
+
 const deleteOrder = async () => {
     const deleteOrder = await fetch('http://localhost:3000/deleteOrders', {
         method: 'POST',
@@ -214,7 +221,6 @@ window.addEventListener('load', async function () {
         <td>${e.custid}</td>
         <td>${formatDate(e.orderdate)}</td>
         <td>
-
             <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
         </td>
     </tr>
@@ -238,6 +244,10 @@ window.addEventListener('load', async function () {
             </td>
         </tr></tbody>`)
     });
+
+    // customerIDMyName(customerMain, 'Sreevani', 'R');
+
+
 
     const getFinanceData = await getFinance();
 
@@ -281,3 +291,15 @@ function logOut() {
     sessionStorage.clear();
     window.location = '../login.html'
 }
+
+// function customerIDMyName(list, fullName) {
+//     // const firstName=
+//     console.log('hello')
+//     return
+//     // return list.filter(e => e.custfirstname === firstName && e.custsecondname === lastName) &&
+//     // list.filter(e => e.custfirstname === firstName && e.custsecondname === lastName)[0] || null
+//     // return list.filter(e => e.custfirstname === firstName && e.custsecondname === lastName)
+// }
+
+// // console.log(abc)
+//     // list.filter(e=>e.custfirstname) custsecondname
