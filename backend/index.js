@@ -31,6 +31,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
  app.get('/getExpense',db.getAllExpense)
  app.get('/genrateOrderId',db.genrateOrderId)
  app.get('/genrateCustomerId',db.genrateCustomerId)
+ app.get('/genrateExpenseId',db.genrateExpenseId)
+ app.post('/deleteExpenseById',db.deleteExpenseById)
 
 app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' })

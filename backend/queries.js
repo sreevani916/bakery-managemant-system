@@ -34,11 +34,20 @@ const genrateOrderId = (request, response) => {
   })
 }
 
+const genrateExpenseId = (request, response) => {
+  pool.query('SELECT exp_id FROM expense ORDER BY exp_id DESC LIMIT 1', (error, results) => {
+    if (error) {
+      throw error
+    }
+    const newExpenseId = results && results.rows[0] && (parseInt(results.rows[0].exp_id) + 1) || 1
+    response.status(200).json(newExpenseId)
+  })
+}
+
 const genrateCustomerId = (request, response) => {
   pool.query('SELECT custid FROM customer ORDER BY custid DESC LIMIT 1', (error, results) => {
     if (error) {
       response.status(201).json('Customer ID not found')
-      // throw error
     }
     const newCustomerId = results && results.rows[0] && (parseInt(results.rows[0].custid) + 1) || 1
     response.status(200).json(newCustomerId)
@@ -66,6 +75,17 @@ const deleteOrderById = (request, response) => {
       throw error
     }
     response.status(200).json({ 'process': true, message: `Data deleted of id ${orderid}` })
+  })
+}
+
+const deleteExpenseById = (request, response) => {
+  const exp_id = request.body.exp_id;
+  pool.query('delete FROM  expense WHERE exp_id = $1', [exp_id], (error, results) => {
+    if (error) {
+      response.status(201).json({ 'process': false, message: `Something went wrong` });
+      throw error
+    }
+    response.status(200).json({ 'process': true, message: `Data deleted of id ${exp_id}` })
   })
 }
 
@@ -128,9 +148,9 @@ const addOrder = async (request, response) => {
 }
 
 const addExpense = (request, response) => {
-  const { expense_type, amount, expenseDate } = request.body
+  const {exp_id, expense_type, amount, expenseDate } = request.body
 
-  pool.query('INSERT INTO expense (expense_type, amount, expenseDate) VALUES ($1, $2, $3)', [expense_type, amount, expenseDate], (error, results) => {
+  pool.query('INSERT INTO expense (exp_id, expense_type, amount, expenseDate) VALUES ($1, $2, $3, $4)', [exp_id, expense_type, amount, expenseDate], (error, results) => {
     if (error) {
       response.status(201).send({ 'process': false, message: 'something went wrong' })
       throw error
@@ -158,5 +178,7 @@ module.exports = {
   addExpense,
   getAllExpense,
   genrateOrderId,
-  genrateCustomerId
+  genrateCustomerId,
+  genrateExpenseId,
+  deleteExpenseById
 }

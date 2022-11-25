@@ -23,23 +23,13 @@
                 <table class="table table-bordered finanse-fill">
                     <thead>
                         <tr>
+                            <th scope="col">Expense ID</th>
                             <th scope="col">Expense Type</th>
                             <th scope="col">Amount</th>
                             <th scope="col">Expense Date</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
-                    <!-- <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Bootstrap 4 CDN and Starter Template</td>
-                            <td>Cristina</td>
-                            <td>
-
-                                <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                            </td>
-                        </tr>
-                    </tbody> -->
                 </table>
             </div>
         </div>
@@ -51,11 +41,15 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New Order</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">New Expense</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="get-order-form">
+                        <div class="form-group">
+                            <label for="expense-id" class="col-form-label">Expense ID:</label>
+                            <input type="text" class="form-control" id="expense-id">
+                        </div>
                         <div class="form-group">
                             <label for="expense-type" class="col-form-label">Expense Type:</label>
                             <input type="text" class="form-control" id="expense-type">

@@ -26,14 +26,14 @@ CREATE TABLE IF NOT EXISTS public.expense
 (
     expense_type character varying COLLATE pg_catalog."default",
     amount character varying COLLATE pg_catalog."default",
-    expensedate date
+    expensedate date,
+    exp_id character varying COLLATE pg_catalog."default"
 )
 
 TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.expense
     OWNER to postgres;
-
 
     -- Table: public.orders
 
