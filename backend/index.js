@@ -2,9 +2,9 @@ const express=require('express');
 const bodyParser = require('body-parser')
 const { Client } = require('pg');
 const client = new Client({
-    user: 'adate',
+    user: 'test',
     host: 'localhost',
-    database: 'adate',
+    database: 'test',
     password: '123',
     port: 5432,
 });
