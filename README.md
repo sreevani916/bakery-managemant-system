@@ -9,4 +9,4 @@ For running this project follow following steps
 2. Run `npm i` in the backend path.
 3. Click on `login.html` which is in frontend folder to start your project.
 
-## Connect with me on [LinkedIn](https://www.linkedin.com/in/adate/)
+
